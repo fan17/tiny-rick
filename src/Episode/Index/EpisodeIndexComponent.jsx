@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import InfiniteScroll from 'react-infinite-scroller'
 import { Episode } from 'Episode/Episode'
 
 class EpisodeIndexComponent extends React.Component {
@@ -7,35 +8,69 @@ class EpisodeIndexComponent extends React.Component {
         super(props)
 
         this.state = {
-            initialized: false,
+            loading: false,
+            page: 1,
             searchText: '',
         }
+
+        this.timer = null
     }
 
-    async componentDidMount() {
-        await this.props.load()
-        this.setState({ initialized: true })
+    onChangeSearch(searchText) {
+        const page = 1
+        this.setState({ searchText, page })
+
+        clearTimeout(this.timer)
+        this.timer = setTimeout(() => {
+            this.load(page, searchText)
+        }, 300)
+    }
+
+    async load(page, searchText) {
+        this.setState({ loading: true })
+        await this.props.load(page, searchText)
+
+        this.setState({
+            page: page + 1,
+            loading: false,
+        })
     }
 
     renderSearch() {
-        return <>Search: {this.state.searchText}</>
+        return (
+            <>
+                Search:{' '}
+                <input
+                    value={this.state.searchText}
+                    onChange={event => this.onChangeSearch(event.target.value)}
+                />
+            </>
+        )
     }
 
     renderEpisodes() {
-        if (!this.state.initialized) {
-            return this.constructor.renderPlaceHolder()
-        }
-
         return (
             <>
-                {this.props.episodes.map(episode => (
-                    <React.Fragment key={episode.id}>
-                        <div>{`episode: ${episode.numberInSeason}`}</div>
-                        <div>{`season: ${episode.seasonNumber}`}</div>
-                        <div>{`name: ${episode.name}`}</div>
-                        <hr />
-                    </React.Fragment>
-                ))}
+                <InfiniteScroll
+                    pageStart={this.state.page}
+                    loadMore={() =>
+                        this.load(this.state.page, this.state.searchText)
+                    }
+                    hasMore={
+                        !this.state.loading &&
+                        (this.props.hasMore || this.state.page === 1)
+                    }
+                    loader={this.constructor.renderPlaceHolder()}
+                >
+                    {this.props.episodes.map(episode => (
+                        <div key={episode.id}>
+                            <div>{`episode: ${episode.numberInSeason}`}</div>
+                            <div>{`season: ${episode.seasonNumber}`}</div>
+                            <div>{`name: ${episode.name}`}</div>
+                            <hr />
+                        </div>
+                    ))}
+                </InfiniteScroll>
             </>
         )
     }
@@ -58,6 +93,7 @@ class EpisodeIndexComponent extends React.Component {
 EpisodeIndexComponent.propTypes = {
     load: PropTypes.func.isRequired,
     episodes: PropTypes.arrayOf(PropTypes.instanceOf(Episode)).isRequired,
+    hasMore: PropTypes.bool.isRequired,
 }
 
 export default EpisodeIndexComponent

@@ -1,18 +1,25 @@
-import { EPISODES_LOADED } from 'Episode/EpisodeActionType'
+import { EPISODES_LOADED } from 'Episode/Load/EpisodeLoadMany'
 
-const getDefaultState = () => ({
+export const getInitialState = () => ({
     meta: {},
     items: {},
+    searchKey: null,
 })
 
-const EpisodeReducer = (state = getDefaultState(), action) => {
+const EpisodeReducer = (state = getInitialState(), action) => {
     switch (action.type) {
-        case EPISODES_LOADED:
+        case EPISODES_LOADED: {
+            const items =
+                action.searchKey !== state.searchKey
+                    ? action.items
+                    : { ...state.items, ...action.items }
             return {
                 ...state,
                 meta: action.meta,
-                items: action.items,
+                items,
+                searchKey: action.searchKey,
             }
+        }
         default:
             return state
     }
