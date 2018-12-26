@@ -9,8 +9,7 @@
     "airbnb",
     "plugin:jsx-a11y/recommended",
     "prettier",
-    "prettier/react",
-    "plugin:flowtype/recommended"
+    "prettier/react"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -19,7 +18,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react", "jest", "jsx-a11y", "prettier", "flowtype"],
+  "plugins": ["react", "jest", "jsx-a11y", "prettier"],
   "rules": {
     "prettier/prettier": [
       "error",
