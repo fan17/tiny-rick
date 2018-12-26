@@ -1,28 +1,26 @@
-import React, { Component } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Header from 'Layout/Header'
+import EpisodeIndexContainer from 'Episode/Index/EpisodeIndexContainer'
+import EpisodeDetailsContainer from 'Episode/Details/EpisodeDetailsContainer'
 
-class App extends Component {
-    render() {
-        return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <p>
-                        Edit <code>src/App.js</code> and save to reload.
-                    </p>
-                    <a
-                        className="App-link"
-                        href="https://reactjs.org"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Learn React
-                    </a>
-                </header>
-            </div>
-        )
-    }
-}
+const App = () => (
+    <Router>
+        <div>
+            <Header />
+            <Route exact path="/" component={EpisodeIndexContainer} />
+            <Route
+                exact
+                path="/episode/:id([0-9])+"
+                render={props => (
+                    <EpisodeDetailsContainer
+                        id={Number(props.match.params.id)}
+                    />
+                )}
+            />
+            {/* <Route path="/topics" component={QuizIndex} /> */}
+        </div>
+    </Router>
+)
 
 export default App
