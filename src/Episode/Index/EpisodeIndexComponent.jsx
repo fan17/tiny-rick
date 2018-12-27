@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import InfiniteScroll from 'react-infinite-scroller'
+import { Link } from 'react-router-dom'
 import { Episode } from 'Episode/Episode'
 
 class EpisodeIndexComponent extends React.Component {
@@ -67,6 +68,7 @@ class EpisodeIndexComponent extends React.Component {
                             <div>{`episode: ${episode.numberInSeason}`}</div>
                             <div>{`season: ${episode.seasonNumber}`}</div>
                             <div>{`name: ${episode.name}`}</div>
+                            <Link to={`/episode/${episode.id}`}>link</Link>
                             <hr />
                         </div>
                     ))}

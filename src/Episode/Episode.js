@@ -10,10 +10,24 @@ export class Episode {
     }
 
     get numberInSeason() {
-        return Number(this.number.split('E').reverse()[0])
+        let result
+        try {
+            result = Number(this.number.split('E').reverse()[0])
+        } catch (error) {
+            result = ''
+        }
+
+        return result
     }
 
     get seasonNumber() {
-        return Number(this.number.slice(1).split('E')[0])
+        let result
+        try {
+            result = Number(this.number.slice(1).split('E')[0])
+        } catch (error) {
+            result = ''
+        }
+
+        return result
     }
 }

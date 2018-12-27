@@ -1,9 +1,12 @@
 import { EPISODES_LOADED } from 'Episode/Load/EpisodeLoadMany'
+import { Episode } from 'Episode/Episode'
+import { SINGLE_EPISODE_LOADED } from 'Episode/Load/EpisodeLoadSingle'
 
 export const getInitialState = () => ({
     meta: {},
     items: {},
     searchKey: null,
+    current: new Episode(),
 })
 
 const EpisodeReducer = (state = getInitialState(), action) => {
@@ -20,6 +23,11 @@ const EpisodeReducer = (state = getInitialState(), action) => {
                 searchKey: action.searchKey,
             }
         }
+        case SINGLE_EPISODE_LOADED:
+            return {
+                ...state,
+                current: action.episode,
+            }
         default:
             return state
     }
