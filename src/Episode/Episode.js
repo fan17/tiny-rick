@@ -30,4 +30,12 @@ export class Episode {
 
         return result
     }
+
+    get characterIds() {
+        return this.characters.reduce(
+            (prev, current) =>
+                prev.concat(Number(current.split('/').reverse()[0])),
+            []
+        )
+    }
 }

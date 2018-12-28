@@ -1,24 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Episode } from 'Episode/Episode'
+import EpisodeCharacterIndexContainer from 'Episode/Character/Index/EpisodeCharacterIndexContainer'
 
 class EpisodeDetailsComponent extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            loading: false,
-        }
-    }
-
-    async componentDidMount() {
-        this.setState({ loading: true })
-        await this.props.load(this.props.id)
-        this.setState({ loading: false })
+    componentDidMount() {
+        this.props.load(this.props.id)
     }
 
     render() {
-        if (this.state.loading) {
+        if (!(this.props.episode instanceof Episode)) {
             return 'placeholder'
         }
         return (
@@ -31,14 +22,21 @@ class EpisodeDetailsComponent extends React.Component {
                     <div>{`airDate: ${this.props.episode.airDate}`}</div>
                     <hr />
                 </div>
+                <EpisodeCharacterIndexContainer
+                    ids={this.props.episode.characterIds}
+                />
             </>
         )
     }
 }
 
+EpisodeDetailsComponent.defaultProps = {
+    episode: null,
+}
+
 EpisodeDetailsComponent.propTypes = {
     load: PropTypes.func.isRequired,
-    episode: PropTypes.instanceOf(Episode).isRequired,
+    episode: PropTypes.instanceOf(Episode),
     id: PropTypes.number.isRequired,
 }
 
