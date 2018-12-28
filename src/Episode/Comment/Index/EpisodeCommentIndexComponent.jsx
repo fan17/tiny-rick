@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import InfiniteScroll from 'react-infinite-scroller'
 import { EpisodeComment } from 'Episode/Comment/EpisodeComment'
+import EpisodeCommentNewContainer from 'Episode/Comment/New/EpisodeCommentNewContainer'
 
 class EpisodeCommentIndexComponent extends React.Component {
     constructor(props) {
@@ -21,16 +22,6 @@ class EpisodeCommentIndexComponent extends React.Component {
             page: page + 1,
             loading: false,
         })
-    }
-
-    renderNewComment() {
-        return (
-            <>
-                <textarea value={this.state.newCommentContent} />
-                <input type="text" value={this.state.newCommentAuthor} />
-                <button type="button">+</button>
-            </>
-        )
     }
 
     renderComments() {
@@ -67,7 +58,7 @@ class EpisodeCommentIndexComponent extends React.Component {
         return (
             <>
                 Comments
-                {this.renderNewComment()}
+                <EpisodeCommentNewContainer episodeId={this.props.episodeId} />
                 {this.renderComments()}
             </>
         )
