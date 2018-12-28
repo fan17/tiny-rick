@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import InfiniteScroll from 'react-infinite-scroller'
 import { EpisodeComment } from 'Episode/Comment/EpisodeComment'
 
 class EpisodeCommentIndexComponent extends React.Component {
@@ -8,31 +9,18 @@ class EpisodeCommentIndexComponent extends React.Component {
 
         this.state = {
             loading: false,
-            displayAll: false,
+            page: 1,
         }
     }
 
-    async componentDidMount() {
+    async load(episodeId, page) {
         this.setState({ loading: true })
-        await this.props.load(this.props.episodeId)
-        this.setState({ loading: false })
-    }
+        await this.props.load(episodeId, page)
 
-    static renderPlaceholder() {
-        return <>placeholder</>
-    }
-
-    renderComments() {
-        return (
-            <>
-                {this.props.comments.map(character => (
-                    <div key={character.id}>
-                        <div>{character.author}</div>
-                        <div>{character.content}</div>
-                    </div>
-                ))}
-            </>
-        )
+        this.setState({
+            page: page + 1,
+            loading: false,
+        })
     }
 
     renderNewComment() {
@@ -45,14 +33,42 @@ class EpisodeCommentIndexComponent extends React.Component {
         )
     }
 
+    renderComments() {
+        return (
+            <>
+                <InfiniteScroll
+                    pageStart={this.state.page}
+                    loadMore={() =>
+                        this.load(this.props.episodeId, this.state.page)
+                    }
+                    hasMore={
+                        !this.state.loading &&
+                        (this.props.hasMore || this.state.page === 1)
+                    }
+                    loader={this.constructor.renderPlaceHolder()}
+                >
+                    {this.props.comments.map(comment => (
+                        <div key={comment.id}>
+                            <div>{comment.author}</div>
+                            <div>{comment.content}</div>
+                            <hr />
+                        </div>
+                    ))}
+                </InfiniteScroll>
+            </>
+        )
+    }
+
+    static renderPlaceHolder() {
+        return <div key="placeholder">placeholder</div>
+    }
+
     render() {
         return (
             <>
                 Comments
                 {this.renderNewComment()}
-                {this.state.loading
-                    ? this.constructor.renderPlaceholder()
-                    : this.renderComments()}
+                {this.renderComments()}
             </>
         )
     }
@@ -61,6 +77,7 @@ class EpisodeCommentIndexComponent extends React.Component {
 EpisodeCommentIndexComponent.propTypes = {
     episodeId: PropTypes.number.isRequired,
     load: PropTypes.func.isRequired,
+    hasMore: PropTypes.bool.isRequired,
     comments: PropTypes.arrayOf(PropTypes.instanceOf(EpisodeComment))
         .isRequired,
 }

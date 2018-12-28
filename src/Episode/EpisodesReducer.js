@@ -1,12 +1,9 @@
 import { EPISODES_LOADED } from 'Episode/Load/EpisodeLoadMany'
-import { SINGLE_EPISODE_LOADED } from 'Episode/Load/EpisodeLoadSingle'
-import { SINGLE_EPISODE_COMMENTS_LOADED } from 'Episode/Comment/Load/EpisodeCommentLoadMany'
 
 export const getInitialState = () => ({
     meta: {},
     items: {},
     searchKey: null,
-    current: null,
 })
 
 const EpisodeReducer = (state = getInitialState(), action) => {
@@ -23,20 +20,6 @@ const EpisodeReducer = (state = getInitialState(), action) => {
                 searchKey: action.searchKey,
             }
         }
-        case SINGLE_EPISODE_LOADED:
-            return {
-                ...state,
-                current: action.episode,
-            }
-        case SINGLE_EPISODE_COMMENTS_LOADED:
-            return state
-            return {
-                ...state,
-                current: {
-                    ...state.current,
-                    comments: action.items,
-                },
-            }
         default:
             return state
     }

@@ -1,4 +1,4 @@
-import EpisodeReducer, { getInitialState } from 'Episode/EpisodeReducer'
+import EpisodeReducer, { getInitialState } from 'Episode/EpisodesReducer'
 import { EPISODES_LOADED } from 'Episode/Load/EpisodeLoadMany'
 
 const WHATEVER_STRING = 'whatever'

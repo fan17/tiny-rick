@@ -3,11 +3,12 @@ import EpisodeCommentIndexComponent from 'Episode/Comment/Index/EpisodeCommentIn
 import loadEpisodeComments from 'Episode/Comment/Load/EpisodeCommentLoadMany'
 
 const mapsStateToProps = state => ({
-    comments: Object.values(state.episode.current.comments || {}),
+    comments: Object.values(state.activeEpisode.comments.items),
+    hasMore: Boolean(state.activeEpisode.comments.meta.next),
 })
 
 const mapDispatchToProps = dispatch => ({
-    load: episodeId => dispatch(loadEpisodeComments(episodeId)),
+    load: (episodeId, page) => dispatch(loadEpisodeComments(episodeId, page)),
 })
 
 export default connect(

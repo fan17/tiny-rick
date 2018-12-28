@@ -78,7 +78,7 @@ class EpisodeIndexComponent extends React.Component {
     }
 
     static renderPlaceHolder() {
-        return <>placeholder</>
+        return <div key="placeholder">placeholder</div>
     }
 
     render() {

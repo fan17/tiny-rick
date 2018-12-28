@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
-import EpisodeReducer from 'Episode/EpisodeReducer'
+import EpisodesReducer from 'Episode/EpisodesReducer'
+import ActiveEpisodeReducer from 'Episode/ActiveEpisodeReducer'
 import CharacterReducer from 'Character/CharacterReducer'
 
 const rootReducer = combineReducers({
-    episode: EpisodeReducer,
+    episodes: EpisodesReducer,
+    activeEpisode: ActiveEpisodeReducer,
     character: CharacterReducer,
 })
 

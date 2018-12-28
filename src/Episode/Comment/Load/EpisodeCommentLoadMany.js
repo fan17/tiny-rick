@@ -9,8 +9,8 @@ const handleErrors = response => {
     return response
 }
 
-export default (id, page = 1) => dispatch =>
-    fetch(`http://tiny-rick.tk/api/episode/${id}/comments?page=${page}`)
+export default (episodeId, page = 1) => dispatch =>
+    fetch(`http://tiny-rick.tk/api/episode/${episodeId}/comments?page=${page}`)
         .then(handleErrors)
         .then(response => response.json())
         .then(data => {

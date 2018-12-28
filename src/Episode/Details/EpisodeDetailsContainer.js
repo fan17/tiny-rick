@@ -3,7 +3,7 @@ import EpisodeDetailsComponent from 'Episode/Details/EpisodeDetailsComponent'
 import loadSingleEpisode from 'Episode/Load/EpisodeLoadSingle'
 
 const mapsStateToProps = state => ({
-    episode: state.episode.current,
+    episode: state.activeEpisode.details,
 })
 
 const mapDispatchToProps = dispatch => ({
