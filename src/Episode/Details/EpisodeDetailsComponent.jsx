@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Episode } from 'Episode/Episode'
 import EpisodeCharacterIndexContainer from 'Episode/Character/Index/EpisodeCharacterIndexContainer'
+import EpisodeCommentIndexContainer from 'Episode/Comment/Index/EpisodeCommentIndexContainer'
 
 class EpisodeDetailsComponent extends React.Component {
     componentDidMount() {
@@ -24,6 +25,9 @@ class EpisodeDetailsComponent extends React.Component {
                 </div>
                 <EpisodeCharacterIndexContainer
                     ids={this.props.episode.characterIds}
+                />
+                <EpisodeCommentIndexContainer
+                    episodeId={this.props.episode.id}
                 />
             </>
         )
