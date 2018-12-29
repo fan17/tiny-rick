@@ -17,10 +17,10 @@ export default (episodeId, page = 1) => dispatch =>
             const meta = data.info
             const items = data.results.reduce((result, rawItem) => {
                 const parsedItem = parseRawComment(rawItem)
-                result[parsedItem.id] = parsedItem
+                result.push(parsedItem)
 
                 return result
-            }, {})
+            }, [])
 
             dispatch({
                 type: SINGLE_EPISODE_COMMENTS_LOADED,

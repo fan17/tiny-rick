@@ -1,11 +1,12 @@
 import { SINGLE_EPISODE_LOADED } from 'Episode/Load/EpisodeLoadSingle'
 import { SINGLE_EPISODE_COMMENTS_LOADED } from 'Episode/Comment/Load/EpisodeCommentLoadMany'
+import { ADD_COMMENT_TO_EPISODE } from 'Episode/Comment/Add/EpisodeCommentAdd'
 
 export const getInitialState = () => ({
     details: null,
     comments: {
         meta: {},
-        items: {},
+        items: [],
     },
     characters: [],
 })
@@ -18,13 +19,21 @@ const EpisodeReducer = (state = getInitialState(), action) => {
                 details: action.episode,
             }
         case SINGLE_EPISODE_COMMENTS_LOADED: {
+            const items = state.comments.items.concat(action.items)
             return {
                 ...state,
                 comments: {
                     meta: action.meta,
-                    items: { ...state.comments.items, ...action.items },
+                    items,
                 },
             }
+        }
+        case ADD_COMMENT_TO_EPISODE: {
+            const newState = JSON.parse(JSON.stringify(state))
+            newState.comment.items = newState.comment.items.unshift(
+                action.comment
+            )
+            return newState
         }
         default:
             return state

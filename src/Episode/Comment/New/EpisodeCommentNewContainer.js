@@ -7,4 +7,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(addCommentToEpisode(episodeId, rawComment)),
 })
 
-export default connect(mapDispatchToProps)(EpisodeCommentNewComponent)
+export default connect(
+    null,
+    mapDispatchToProps
+)(EpisodeCommentNewComponent)

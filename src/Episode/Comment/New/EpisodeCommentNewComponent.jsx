@@ -11,7 +11,8 @@ class EpisodeCommentNewComponent extends React.Component {
         }
     }
 
-    async addComment() {
+    async add(event) {
+        event.preventDefault()
         await this.props.add(this.props.episodeId, {
             author: this.state.author,
             content: this.state.content,
@@ -25,7 +26,7 @@ class EpisodeCommentNewComponent extends React.Component {
 
     render() {
         return (
-            <form onSubmit={() => this.addComment()}>
+            <form onSubmit={event => this.add(event)}>
                 <textarea
                     value={this.state.content}
                     onChange={event =>
@@ -39,7 +40,7 @@ class EpisodeCommentNewComponent extends React.Component {
                         this.setState({ author: event.target.value })
                     }
                 />
-                <button type="button">+</button>
+                <button type="submit">+</button>
             </form>
         )
     }
