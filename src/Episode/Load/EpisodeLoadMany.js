@@ -33,13 +33,13 @@ export default (pageNumber = 1, searchKey = '') => dispatch =>
 
             return data
         })
-        .catch(() => {
-            dispatch({
-                type: EPISODES_LOADED,
-                meta: {},
-                items: {},
-                searchKey,
-            })
+// .catch(() => {
+//     dispatch({
+//         type: EPISODES_LOADED,
+//         meta: {},
+//         items: {},
+//         searchKey,
+//     })
 
-            return {}
-        })
+//     return {}
+// })

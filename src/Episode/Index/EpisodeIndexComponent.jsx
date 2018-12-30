@@ -65,7 +65,7 @@ class EpisodeIndexComponent extends React.Component {
                 >
                     {this.props.episodes.map(episode => (
                         <div key={episode.id}>
-                            <div>{`episode: ${episode.numberInSeason}`}</div>
+                            <div>{`episode: ${episode.number}`}</div>
                             <div>{`season: ${episode.seasonNumber}`}</div>
                             <div>{`name: ${episode.name}`}</div>
                             <Link to={`/episode/${episode.id}`}>link</Link>

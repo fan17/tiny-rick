@@ -17,7 +17,7 @@ class EpisodeDetailsComponent extends React.Component {
             <>
                 EpisodeDetailsComponent
                 <div>
-                    <div>{`episode: ${this.props.episode.numberInSeason}`}</div>
+                    <div>{`episode: ${this.props.episode.number}`}</div>
                     <div>{`season: ${this.props.episode.seasonNumber}`}</div>
                     <div>{`name: ${this.props.episode.name}`}</div>
                     <div>{`airDate: ${this.props.episode.airDate}`}</div>
