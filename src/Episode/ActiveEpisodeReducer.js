@@ -12,7 +12,7 @@ export const getInitialState = () => ({
     characters: [],
 })
 
-const EpisodeReducer = (state = getInitialState(), action) => {
+const ActiveEpisodeReducer = (state = getInitialState(), action) => {
     switch (action.type) {
         case SINGLE_EPISODE_LOADED:
             return {
@@ -51,4 +51,4 @@ const EpisodeReducer = (state = getInitialState(), action) => {
     }
 }
 
-export default EpisodeReducer
+export default ActiveEpisodeReducer
