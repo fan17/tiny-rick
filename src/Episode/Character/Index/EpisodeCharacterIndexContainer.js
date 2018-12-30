@@ -3,7 +3,7 @@ import EpisodeCharacterIndexComponent from 'Episode/Character/Index/EpisodeChara
 import loadManyCharacters from 'Character/Load/CharacterLoadMany'
 
 const mapsStateToProps = state => ({
-    characters: Object.values(state.character.items),
+    characters: Object.values(state.activeEpisode.characters),
 })
 
 const mapDispatchToProps = dispatch => ({

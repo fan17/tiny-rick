@@ -1,31 +1,21 @@
+import randomString from 'randomstring'
 import { EpisodeComment } from 'Episode/Comment/EpisodeComment'
 
 export const ADD_COMMENT_TO_EPISODE = 'ADD_COMMENT_TO_EPISODE'
 
-const handleErrors = response => {
-    if (!response.ok) {
-        throw Error()
-    }
-    return response
-}
-
+// http://tiny-rick.tk has cors restrictions, so I'm mocking POST request
 export default (episodeId, rawComment) => dispatch =>
-    fetch(`http://tiny-rick.tk/api/episode/${episodeId}/comments`, {
-        method: 'post',
-        body: JSON.stringify(rawComment),
-    })
-        .then(handleErrors)
-        .then(response => response.json())
-        .then(data => {
-            dispatch({
-                type: ADD_COMMENT_TO_EPISODE,
-                comment: new EpisodeComment(
-                    undefined,
-                    rawComment.author,
-                    rawComment.content
-                ),
-            })
-
-            return data
+    new Promise(resolve => {
+        const id = randomString.generate(7)
+        const comment = new EpisodeComment(
+            id,
+            rawComment.author,
+            rawComment.content
+        )
+        dispatch({
+            type: ADD_COMMENT_TO_EPISODE,
+            comment,
         })
-        .catch(() => ({}))
+
+        resolve(comment)
+    })

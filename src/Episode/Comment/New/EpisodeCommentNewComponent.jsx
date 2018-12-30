@@ -26,7 +26,7 @@ class EpisodeCommentNewComponent extends React.Component {
 
     render() {
         return (
-            <form onSubmit={event => this.add(event)}>
+            <form onSubmit={this.add.bind(this)}>
                 <textarea
                     value={this.state.content}
                     onChange={event =>

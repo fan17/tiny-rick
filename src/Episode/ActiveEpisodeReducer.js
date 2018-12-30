@@ -1,6 +1,7 @@
 import { SINGLE_EPISODE_LOADED } from 'Episode/Load/EpisodeLoadSingle'
 import { SINGLE_EPISODE_COMMENTS_LOADED } from 'Episode/Comment/Load/EpisodeCommentLoadMany'
 import { ADD_COMMENT_TO_EPISODE } from 'Episode/Comment/Add/EpisodeCommentAdd'
+import { CHARACTERS_LOADED } from 'Character/Load/CharacterLoadMany'
 
 export const getInitialState = () => ({
     details: null,
@@ -29,11 +30,21 @@ const EpisodeReducer = (state = getInitialState(), action) => {
             }
         }
         case ADD_COMMENT_TO_EPISODE: {
-            const newState = JSON.parse(JSON.stringify(state))
-            newState.comment.items = newState.comment.items.unshift(
-                action.comment
-            )
-            return newState
+            const items = state.comments.items
+            items.unshift(action.comment)
+            return {
+                ...state,
+                comments: {
+                    meta: state.comments.meta,
+                    items,
+                },
+            }
+        }
+        case CHARACTERS_LOADED: {
+            return {
+                ...state,
+                characters: action.items,
+            }
         }
         default:
             return state
