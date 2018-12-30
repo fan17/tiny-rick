@@ -7,7 +7,7 @@ class Header extends React.Component {
             <nav>
                 <Link to="/">Home</Link>
                 <Link to="/">Episodes</Link>
-                <Link to="/">Quiz</Link>
+                <Link to="/quiz">Quiz</Link>
             </nav>
         )
     }

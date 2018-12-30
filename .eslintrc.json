@@ -44,12 +44,7 @@
     "import/no-unresolved": "off",
     "no-param-reassign": "off",
     "import/prefer-default-export": "off",
-    "no-underscore-dangle": [
-      "error",
-      {
-        "allow": ["__typename", "__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"]
-      }
-    ],
+    "no-underscore-dangle": "off",
     "prefer-destructuring": "off",
     "no-plusplus": "off",
     "import/named": "off",
