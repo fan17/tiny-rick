@@ -7,7 +7,6 @@ import QuestionInterface from 'Quiz/Question/QuestionInterface'
 import { OpenQuestion } from 'Quiz/Question/Open/OpenQuestion'
 import { ClosedQuestion } from 'Quiz/Question/Closed/ClosedQuestion'
 import QuizStepClosedQuestionComponent from 'Quiz/Index/Step/QuizStepClosedQuestionComponent'
-import Media from 'Layout/Media'
 
 class QuizIndexComponent extends React.Component {
     constructor(props) {
@@ -52,10 +51,8 @@ class QuizIndexComponent extends React.Component {
         const total = this.props.questions.length
         const question = this.props.questions[this.getQuestionIndex()]
 
-        let result = ''
-
         if (question instanceof OpenQuestion) {
-            result = (
+            return (
                 <QuizStepOpenQuestionComponent
                     current={current}
                     total={total}
@@ -66,7 +63,7 @@ class QuizIndexComponent extends React.Component {
         }
 
         if (question instanceof ClosedQuestion) {
-            result = (
+            return (
                 <QuizStepClosedQuestionComponent
                     current={current}
                     total={total}
@@ -76,23 +73,14 @@ class QuizIndexComponent extends React.Component {
             )
         }
 
-        if (!result) {
-            throw Error('Question type is not support')
-        }
-
-        return (
-            <Media
-                image="http://tiny-rick-demo.tk/img/quiz-start.c6fd8b48.png"
-                render={() => result}
-            />
-        )
+        throw Error('Question type is not support')
     }
 
     static renderPlaceholder() {
         return <>placeholder</>
     }
 
-    render() {
+    renderQuiz() {
         if (!this.state.introductionHasBeenSeen) {
             return (
                 <QuizIndexStartComponent
@@ -119,6 +107,10 @@ class QuizIndexComponent extends React.Component {
         }
 
         return this.constructor.renderPlaceholder()
+    }
+
+    render() {
+        return <div className="quiz">{this.renderQuiz()}</div>
     }
 }
 

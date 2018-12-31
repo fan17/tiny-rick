@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { OpenQuestion } from 'Quiz/Question/Open/OpenQuestion'
+import QuizStepBaseQuestionComponent from 'Quiz/Index/Step/QuizStepBaseQuestionComponent'
 
 class QuizStepOpenQuestionComponent extends React.Component {
     constructor(props) {
@@ -10,32 +11,40 @@ class QuizStepOpenQuestionComponent extends React.Component {
         }
     }
 
-    onSubmit(event) {
-        event.preventDefault()
-        this.props.setAnswer(this.props.question.id(), this.state.answer)
-    }
-
     render() {
         return (
-            <div>
-                QuizStepOpenQuestionComponent
-                <br />
-                Question {this.props.current}
-                <br />
-                {this.props.current - 1} / {this.props.total}
-                {this.props.question.text()}
-                <form onSubmit={this.onSubmit.bind(this)}>
-                    <input
-                        required
-                        type="text"
-                        value={this.state.answer}
-                        onChange={event =>
-                            this.setState({ answer: event.target.value })
-                        }
-                    />
-                    <button type="submit">next</button>
-                </form>
-            </div>
+            <QuizStepBaseQuestionComponent
+                current={this.props.current}
+                total={this.props.total}
+                question={this.props.question}
+                render={() => (
+                    <div className="quiz__bottom-panel">
+                        <input
+                            required
+                            type="text"
+                            className="quiz__answer quiz__answer--text"
+                            value={this.state.answer}
+                            onChange={event =>
+                                this.setState({
+                                    answer: event.target.value,
+                                })
+                            }
+                        />
+                        <button
+                            type="button"
+                            onClick={() =>
+                                this.props.setAnswer(
+                                    this.props.question.id(),
+                                    this.state.answer
+                                )
+                            }
+                            className="quiz__button quiz__button--primary"
+                        >
+                            next
+                        </button>
+                    </div>
+                )}
+            />
         )
     }
 }
