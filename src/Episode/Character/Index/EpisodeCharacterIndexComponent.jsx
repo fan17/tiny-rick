@@ -29,37 +29,63 @@ class EpisodeCharacterIndexComponent extends React.Component {
 
         return (
             <>
-                {charactersToDisplay.map(character => (
-                    <div key={character.id}>
-                        <div>{character.name}</div>
-                        <div>{character.species}</div>
-                        <div>{character.origin}</div>
-                        <img src={character.image} alt={character.name} />
-                    </div>
-                ))}
-                {this.state.displayAll ? (
-                    <button
-                        type="button"
-                        onClick={() =>
-                            this.setState(state => ({
-                                displayAll: !state.displayAll,
-                            }))
-                        }
-                    >
-                        show less
-                    </button>
-                ) : (
-                    <button
-                        type="button"
-                        onClick={() =>
-                            this.setState(state => ({
-                                displayAll: !state.displayAll,
-                            }))
-                        }
-                    >
-                        show more
-                    </button>
-                )}
+                <div className="characters-list">
+                    <transition-group name="fade-up" appear>
+                        {charactersToDisplay.map(character => (
+                            <div className="base-item" key={character.id}>
+                                <header className="base-item__header">
+                                    {character.image ? (
+                                        <img
+                                            className="base-item__img"
+                                            src={character.image}
+                                            alt={character.name}
+                                        />
+                                    ) : (
+                                        ''
+                                    )}
+                                    <div className="base-item__header-content">
+                                        <h3 className="base-item__title">
+                                            {character.name}
+                                        </h3>
+                                        <span className="base-item__subtitle">
+                                            {character.species}
+                                            {' from '}
+                                            {character.origin}
+                                        </span>
+                                    </div>
+                                </header>
+                            </div>
+                        ))}
+                    </transition-group>
+                </div>
+
+                <transition name="fade-up">
+                    {this.state.displayAll ? (
+                        <button
+                            type="button"
+                            className="primary-link is-big"
+                            onClick={() =>
+                                this.setState(state => ({
+                                    displayAll: !state.displayAll,
+                                }))
+                            }
+                        >
+                            show less
+                        </button>
+                    ) : (
+                        <button
+                            type="button"
+                            className="primary-link is-big"
+                            onClick={() =>
+                                this.setState(state => ({
+                                    displayAll: !state.displayAll,
+                                }))
+                            }
+                        >
+                            show more
+                        </button>
+                    )}
+                </transition>
             </>
         )
     }
@@ -67,7 +93,7 @@ class EpisodeCharacterIndexComponent extends React.Component {
     render() {
         return (
             <>
-                Characters
+                <h2>Characters</h2>
                 {this.state.loading
                     ? this.constructor.renderPlaceholder()
                     : this.renderCharacters()}
