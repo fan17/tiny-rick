@@ -1,7 +1,7 @@
 ## generally
 * base on cra
 * do not implement api (use http://tiny-rick-demo.tk)
-* do not style (hope do it in future ;))
+* styles from origin (some features does not work eg. transitions)
 
 ## how to start?
 * yarn
