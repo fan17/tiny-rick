@@ -17,34 +17,33 @@ class QuizStepOpenQuestionComponent extends React.Component {
                 current={this.props.current}
                 total={this.props.total}
                 question={this.props.question}
-                render={() => (
-                    <div className="quiz__bottom-panel">
-                        <input
-                            required
-                            type="text"
-                            className="quiz__answer quiz__answer--text"
-                            value={this.state.answer}
-                            onChange={event =>
-                                this.setState({
-                                    answer: event.target.value,
-                                })
-                            }
-                        />
-                        <button
-                            type="button"
-                            onClick={() =>
-                                this.props.setAnswer(
-                                    this.props.question.id(),
-                                    this.state.answer
-                                )
-                            }
-                            className="quiz__button quiz__button--primary"
-                        >
-                            next
-                        </button>
-                    </div>
-                )}
-            />
+            >
+                <div className="quiz__bottom-panel">
+                    <input
+                        required
+                        type="text"
+                        className="quiz__answer quiz__answer--text"
+                        value={this.state.answer}
+                        onChange={event =>
+                            this.setState({
+                                answer: event.target.value,
+                            })
+                        }
+                    />
+                    <button
+                        type="button"
+                        onClick={() =>
+                            this.props.setAnswer(
+                                this.props.question.id(),
+                                this.state.answer
+                            )
+                        }
+                        className="quiz__button quiz__button--primary"
+                    >
+                        next
+                    </button>
+                </div>
+            </QuizStepBaseQuestionComponent>
         )
     }
 }

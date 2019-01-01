@@ -31,7 +31,7 @@ class QuizStepBaseQuestionComponent extends React.Component {
                             </span>
                         </div>
                         <div className="quiz__bottom-panel">
-                            {this.props.render()}
+                            {this.props.children}
                         </div>
                     </div>
                 </div>
@@ -40,10 +40,14 @@ class QuizStepBaseQuestionComponent extends React.Component {
     }
 }
 
+QuizStepBaseQuestionComponent.defaultProps = {
+    children: '',
+}
+
 QuizStepBaseQuestionComponent.propTypes = {
     current: PropTypes.number.isRequired,
     total: PropTypes.number.isRequired,
     question: PropTypes.instanceOf(OpenQuestion).isRequired,
-    render: PropTypes.func.isRequired,
+    children: PropTypes.node,
 }
 export default QuizStepBaseQuestionComponent
