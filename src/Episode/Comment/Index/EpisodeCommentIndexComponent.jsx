@@ -26,7 +26,7 @@ class EpisodeCommentIndexComponent extends React.Component {
 
     renderComments() {
         return (
-            <transition-group name="fade-up">
+            <>
                 <InfiniteScroll
                     pageStart={this.state.page}
                     loadMore={() =>
@@ -39,24 +39,14 @@ class EpisodeCommentIndexComponent extends React.Component {
                     loader={this.constructor.renderPlaceHolder()}
                 >
                     {this.props.comments.map(comment => (
-                        <div className="base-item" key={comment.id}>
-                            <header className="base-item__header">
-                                <div className="base-item__header-content">
-                                    <h3 className="base-item__title">
-                                        {comment.author}
-                                    </h3>
-                                    <span className="base-item__subtitle">
-                                        {comment.createdDate}
-                                    </span>
-                                </div>
-                            </header>
-                            <p className="base-item__content">
-                                {comment.content}
-                            </p>
+                        <div key={comment.id}>
+                            <div>{comment.author}</div>
+                            <div>{comment.content}</div>
+                            <hr />
                         </div>
                     ))}
                 </InfiniteScroll>
-            </transition-group>
+            </>
         )
     }
 
@@ -66,15 +56,11 @@ class EpisodeCommentIndexComponent extends React.Component {
 
     render() {
         return (
-            <div className="episode__right-col">
-                <h2>Comments</h2>
-                <div className="comments">
-                    <EpisodeCommentNewContainer
-                        episodeId={this.props.episodeId}
-                    />
-                    {this.renderComments()}
-                </div>
-            </div>
+            <>
+                Comments
+                <EpisodeCommentNewContainer episodeId={this.props.episodeId} />
+                {this.renderComments()}
+            </>
         )
     }
 }

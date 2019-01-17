@@ -1,40 +1,36 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ClosedQuestion } from 'Quiz/Question/Closed/ClosedQuestion'
-import QuizStepBaseQuestionComponent from 'Quiz/Index/Step/QuizStepBaseQuestionComponent'
 
 class QuizStepClosedQuestionComponent extends React.Component {
+    onChange(event) {
+        event.preventDefault()
+        this.props.setAnswer(this.props.question.id(), event.target.value)
+    }
+
     render() {
         return (
-            <QuizStepBaseQuestionComponent
-                current={this.props.current}
-                total={this.props.total}
-                question={this.props.question}
-            >
-                <div className="quiz__bottom-panel">
+            <div>
+                QuizStepClosedQuestionComponent
+                <br />
+                Question {this.props.current}
+                <br />
+                {this.props.current - 1} / {this.props.total}
+                {this.props.question.text()}
+                <form>
                     {this.props.question.options().map(option => (
-                        <label
-                            className="quiz__answer quiz__answer--select"
-                            key={option.id}
-                            htmlFor={`option_${option.id}`}
-                        >
+                        <div key={option.id}>
                             <input
                                 required
                                 type="radio"
-                                id={`option_${option.id}`}
                                 value={option.id}
-                                onChange={event =>
-                                    this.props.setAnswer(
-                                        this.props.question.id(),
-                                        event.target.value
-                                    )
-                                }
+                                onChange={this.onChange.bind(this)}
                             />
                             {option.text}
-                        </label>
+                        </div>
                     ))}
-                </div>
-            </QuizStepBaseQuestionComponent>
+                </form>
+            </div>
         )
     }
 }

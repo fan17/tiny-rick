@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import InfiniteScroll from 'react-infinite-scroller'
 import { Link } from 'react-router-dom'
 import { Episode } from 'Episode/Episode'
-import { ReactComponent as SearchIcon } from 'assets/icon-search.svg'
 
 class EpisodeIndexComponent extends React.Component {
     constructor(props) {
@@ -40,15 +39,13 @@ class EpisodeIndexComponent extends React.Component {
 
     renderSearch() {
         return (
-            <div className="episodes__search">
-                <SearchIcon />
+            <>
+                Search:{' '}
                 <input
-                    type="text"
-                    placeholder="Search"
                     value={this.state.searchText}
                     onChange={event => this.onChangeSearch(event.target.value)}
                 />
-            </div>
+            </>
         )
     }
 
@@ -64,52 +61,33 @@ class EpisodeIndexComponent extends React.Component {
                         !this.state.loading &&
                         (this.props.hasMore || this.state.page === 1)
                     }
-                    loader={this.constructor.renderLoadingMore()}
+                    loader={this.constructor.renderPlaceHolder()}
                 >
-                    <transition-group
-                        name="fade"
-                        class="episodes__list"
-                        tag="ul"
-                    >
-                        {this.props.episodes.map(episode => (
-                            <li key={episode.id}>
-                                <Link to={`/episode/${episode.id}`}>
-                                    <div className="episode-item">
-                                        <h3 className="episode-item__num">{`Episode ${
-                                            episode.number
-                                        }`}</h3>
-                                        <h2 className="episode-item__name">
-                                            {episode.name}
-                                        </h2>
-                                        <span className="episode-item__season-badge">
-                                            Season {episode.seasonNumber}
-                                        </span>
-                                    </div>
-                                    <div />
-                                </Link>
-                            </li>
-                        ))}
-                    </transition-group>
+                    {this.props.episodes.map(episode => (
+                        <div key={episode.id}>
+                            <div>{`episode: ${episode.number}`}</div>
+                            <div>{`season: ${episode.seasonNumber}`}</div>
+                            <div>{`name: ${episode.name}`}</div>
+                            <Link to={`/episode/${episode.id}`}>link</Link>
+                            <hr />
+                        </div>
+                    ))}
                 </InfiniteScroll>
             </>
         )
     }
 
-    static renderLoadingMore() {
-        return (
-            <div key="placeholder" className="episodes__loader">
-                Loading more
-            </div>
-        )
+    static renderPlaceHolder() {
+        return <div key="placeholder">placeholder</div>
     }
 
     render() {
         return (
-            <div className="episodes">
-                <h1 className="episodes__title">Episodes</h1>
+            <>
+                EpisodeIndexComponent
                 {this.renderSearch()}
                 {this.renderEpisodes()}
-            </div>
+            </>
         )
     }
 }
