@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { ReactComponent as IconPlus } from 'assets/icon-plus.svg'
 
 class EpisodeCommentNewComponent extends React.Component {
     constructor(props) {
@@ -26,21 +27,27 @@ class EpisodeCommentNewComponent extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.add.bind(this)}>
+            <form onSubmit={this.add.bind(this)} className="episode-new">
                 <textarea
                     value={this.state.content}
                     onChange={event =>
                         this.setState({ content: event.target.value })
                     }
+                    placeholder="Your comment here"
                 />
-                <input
-                    type="text"
-                    value={this.state.author}
-                    onChange={event =>
-                        this.setState({ author: event.target.value })
-                    }
-                />
-                <button type="submit">+</button>
+                <div className="episode-new__author">
+                    <input
+                        type="text"
+                        value={this.state.author}
+                        onChange={event =>
+                            this.setState({ author: event.target.value })
+                        }
+                        placeholder="Username"
+                    />
+                    <button type="submit">
+                        <IconPlus />
+                    </button>
+                </div>
             </form>
         )
     }

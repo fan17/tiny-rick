@@ -165,3 +165,114 @@
     border-radius: 50%;
   }
 }
+
+.episode-comments {
+  &__title {
+    font-weight: normal;
+    font-size: 18px;
+  }
+
+  &__list {
+    margin-top: 10px;
+
+    li {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.episode-comment {
+  background: #fff;
+  color: $c-text-primary;
+  border-radius: 15px;
+  padding: 10px 15px;
+
+  &__author {
+    font-weight: bold;
+  }
+
+  &__created-date {
+    color: $c-text-secondary;
+    font-size: 14px;
+  }
+
+  &__content {
+    color: $c-text-secondary;
+    font-size: 13px;
+    margin-top: 10px;
+  }
+}
+
+.episode-new {
+  background: #fff;
+  border-radius: 15px;
+
+  textarea {
+    width: 100%;
+    height: 120px;
+    padding: 20px 15px;
+    border: 0;
+    background: none;
+    outline: none;
+    color: $c-text-secondary;
+  }
+
+  &__author {
+    color: $c-text-primary;
+    display: flex;
+    padding: 0 5px 0 15px;
+    align-items: center;
+    height: 46px;
+
+    ::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 15px;
+      right: 15px;
+      border-top: 1px solid $c-border;
+    }
+
+    &::before,
+    button {
+      height: 24px;
+      line-height: 21px;
+      text-align: center;
+      color: $c-text-primary;
+    }
+
+    &::before {
+      content: "@";
+      width: 30px;
+      border-right: 1px solid $c-border;
+      font-size: 17px;
+    }
+
+    input {
+      outline: none;
+      border: 0;
+      height: 40px;
+      padding: 10px;
+      flex: 1;
+
+      &::placeholder {
+        color: $c-text-secondary;
+      }
+    }
+
+    button {
+      padding: 0 10px;
+      border-left: 1px solid $c-border;
+      cursor: pointer;
+
+      &:hover {
+        color: $c-primary;
+      }
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}

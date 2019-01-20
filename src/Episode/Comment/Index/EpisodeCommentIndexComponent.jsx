@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import InfiniteScroll from 'react-infinite-scroller'
-import { EpisodeComment } from 'Episode/Comment/EpisodeComment'
+import EpisodeCommentComponent from 'Episode/Comment/EpisodeCommentComponent'
 import EpisodeCommentNewContainer from 'Episode/Comment/New/EpisodeCommentNewContainer'
+import { EpisodeComment } from 'Episode/Comment/EpisodeComment'
 
 class EpisodeCommentIndexComponent extends React.Component {
     constructor(props) {
@@ -26,27 +27,29 @@ class EpisodeCommentIndexComponent extends React.Component {
 
     renderComments() {
         return (
-            <>
-                <InfiniteScroll
-                    pageStart={this.state.page}
-                    loadMore={() =>
-                        this.load(this.props.episodeId, this.state.page)
-                    }
-                    hasMore={
-                        !this.state.loading &&
-                        (this.props.hasMore || this.state.page === 1)
-                    }
-                    loader={this.constructor.renderPlaceHolder()}
-                >
+            <InfiniteScroll
+                pageStart={this.state.page}
+                loadMore={() =>
+                    this.load(this.props.episodeId, this.state.page)
+                }
+                hasMore={
+                    !this.state.loading &&
+                    (this.props.hasMore || this.state.page === 1)
+                }
+                loader={this.constructor.renderPlaceHolder()}
+            >
+                <ul className="episode-comments__list">
                     {this.props.comments.map(comment => (
-                        <div key={comment.id}>
-                            <div>{comment.author}</div>
-                            <div>{comment.content}</div>
-                            <hr />
-                        </div>
+                        <li key={comment.id}>
+                            <EpisodeCommentComponent
+                                author={comment.author}
+                                content={comment.content}
+                                createdDate={comment.content}
+                            />
+                        </li>
                     ))}
-                </InfiniteScroll>
-            </>
+                </ul>
+            </InfiniteScroll>
         )
     }
 
@@ -57,7 +60,7 @@ class EpisodeCommentIndexComponent extends React.Component {
     render() {
         return (
             <>
-                Comments
+                <h2 className="episode-comments__title">Comments</h2>
                 <EpisodeCommentNewContainer episodeId={this.props.episodeId} />
                 {this.renderComments()}
             </>

@@ -34,9 +34,11 @@ class EpisodeDetailsComponent extends React.Component {
                         </div>
                     </div>
                     <div className="episode__right-col">
-                        <EpisodeCommentIndexContainer
-                            episodeId={this.props.episode.id}
-                        />
+                        <div className="episode-comments">
+                            <EpisodeCommentIndexContainer
+                                episodeId={this.props.episode.id}
+                            />
+                        </div>
                     </div>
                 </div>
             </>
