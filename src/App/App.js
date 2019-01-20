@@ -10,15 +10,17 @@ const App = () => (
     <Router>
         <div>
             <Header />
-            <Route exact path="/" component={EpisodeIndexContainer} />
-            <Route
-                exact
-                path="/episode/:id([0-9])+"
-                render={({ match }) => (
-                    <EpisodeDetailsContainer id={Number(match.params.id)} />
-                )}
-            />
-            <Route path="/quiz" component={QuizIndexContainer} />
+            <main className="main">
+                <Route exact path="/" component={EpisodeIndexContainer} />
+                <Route
+                    exact
+                    path="/episode/:id([0-9])+"
+                    render={({ match }) => (
+                        <EpisodeDetailsContainer id={Number(match.params.id)} />
+                    )}
+                />
+                <Route exact path="/quiz" component={QuizIndexContainer} />
+            </main>
         </div>
     </Router>
 )

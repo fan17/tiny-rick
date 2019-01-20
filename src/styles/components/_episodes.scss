@@ -1,0 +1,167 @@
+.episodes {
+  &__search {
+    display: flex;
+    margin: 0 auto 30px;
+    padding: 10px 0;
+    align-items: center;
+    border-bottom: 1px solid #fff;
+
+    @media #{$tablet-up} {
+      max-width: 340px;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    input {
+      flex: 1;
+      background: none;
+      padding: 5px 15px;
+      border: 0;
+      color: #fff;
+      outline: none;
+      font-size: 16px;
+
+      &::placeholder {
+        color: currentColor;
+        opacity: 0.7;
+      }
+    }
+  }
+
+  &__list {
+    @media #{$tablet-up} {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    li {
+      display: block;
+      margin-bottom: 15px;
+
+      @media #{$tablet-up} {
+        flex-basis: 50%;
+        padding: 0 7.5px;
+      }
+
+      @media #{$desktop-up} {
+        flex-basis: 33.333%;
+      }
+    }
+  }
+}
+
+.episode-item {
+  display: block;
+  position: relative;
+  padding: 15px 12px;
+  background: #fff;
+  border-radius: 15px;
+  color: $c-text-primary;
+
+  &__number,
+  &__name {
+    margin: 0;
+    font-weight: normal;
+    font-size: 18px;
+  }
+
+  &__name {
+    color: $c-text-secondary;
+  }
+
+  &__season-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    margin: auto;
+    background-color: $c-green;
+    color: #fff;
+    border-radius: 15px;
+    padding: 4px 10px;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  &__air-date {
+    border-top: 1px solid $c-border;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-top: 10px;
+
+    &__value {
+      color: $c-text-secondary;
+    }
+  }
+}
+
+.episode-details {
+  margin-bottom: 20px;
+}
+
+.episode {
+  padding: 10px 15px;
+  @media #{$tablet-up} {
+    display: flex;
+  }
+
+  &__left-col {
+    @media #{$tablet-up} {
+      width: 340px;
+      margin-right: 20px;
+    }
+  }
+
+  &__right-col {
+    @media #{$tablet-up} {
+      flex: 1;
+    }
+  }
+}
+
+.episode-characters {
+  &__item {
+    margin-bottom: 10px;
+  }
+
+  &__title {
+    font-weight: normal;
+    font-size: 18px;
+  }
+
+  &__more {
+    text-align: center;
+  }
+}
+
+.episode-character {
+  padding: 10px 15px;
+  background-color: #fff;
+  border-radius: 15px;
+  color: $c-text-primary;
+  display: flex;
+  align-items: center;
+
+  &__left-col {
+    margin-right: 10px;
+  }
+
+  &__name {
+    font-size: 15px;
+    margin: 0;
+  }
+
+  &__info {
+    color: $c-text-secondary;
+    font-size: 13px;
+  }
+
+  img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+  }
+}

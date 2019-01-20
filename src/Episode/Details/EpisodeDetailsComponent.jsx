@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Episode } from 'Episode/Episode'
 import EpisodeCharacterIndexContainer from 'Episode/Character/Index/EpisodeCharacterIndexContainer'
 import EpisodeCommentIndexContainer from 'Episode/Comment/Index/EpisodeCommentIndexContainer'
+import EpisodeItem from 'Episode/Details/EpisodeItem'
 
 class EpisodeDetailsComponent extends React.Component {
     componentDidMount() {
@@ -15,20 +16,29 @@ class EpisodeDetailsComponent extends React.Component {
         }
         return (
             <>
-                EpisodeDetailsComponent
-                <div>
-                    <div>{`episode: ${this.props.episode.number}`}</div>
-                    <div>{`season: ${this.props.episode.seasonNumber}`}</div>
-                    <div>{`name: ${this.props.episode.name}`}</div>
-                    <div>{`airDate: ${this.props.episode.airDate}`}</div>
-                    <hr />
+                <h1 className="main__title">Episode</h1>
+                <div className="episode">
+                    <div className="episode__left-col">
+                        <div className="episode-details">
+                            <EpisodeItem
+                                name={this.props.episode.name}
+                                seasonNumber={this.props.episode.seasonNumber}
+                                number={this.props.episode.number}
+                                airDate={this.props.episode.airDate}
+                            />
+                        </div>
+                        <div className="episode-characters">
+                            <EpisodeCharacterIndexContainer
+                                ids={this.props.episode.characterIds}
+                            />
+                        </div>
+                    </div>
+                    <div className="episode__right-col">
+                        <EpisodeCommentIndexContainer
+                            episodeId={this.props.episode.id}
+                        />
+                    </div>
                 </div>
-                <EpisodeCharacterIndexContainer
-                    ids={this.props.episode.characterIds}
-                />
-                <EpisodeCommentIndexContainer
-                    episodeId={this.props.episode.id}
-                />
             </>
         )
     }

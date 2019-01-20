@@ -33,3 +33,13 @@ ul {
   margin: 0;
   padding: 0;
 }
+
+.primary-link {
+  color: $c-primary;
+  text-decoration: underline;
+  font-size: 12px;
+
+  &.is-big {
+    font-size: 16px;
+  }
+}

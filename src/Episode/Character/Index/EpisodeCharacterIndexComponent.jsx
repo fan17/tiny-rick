@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Character from 'Character/Character'
+import EpisodeCharacterComponent from 'Episode/Character/EpisodeCharacterComponent'
 
 class EpisodeCharacterIndexComponent extends React.Component {
     constructor(props) {
@@ -30,48 +31,57 @@ class EpisodeCharacterIndexComponent extends React.Component {
         return (
             <>
                 {charactersToDisplay.map(character => (
-                    <div key={character.id}>
-                        <div>{character.name}</div>
-                        <div>{character.species}</div>
-                        <div>{character.origin}</div>
-                        <img src={character.image} alt={character.name} />
+                    <div
+                        key={character.id}
+                        className="episode-characters__item"
+                    >
+                        <EpisodeCharacterComponent
+                            name={character.name}
+                            origin={character.origin}
+                            species={character.species}
+                            image={character.image}
+                        />
                     </div>
                 ))}
-                {this.state.displayAll ? (
-                    <button
-                        type="button"
-                        onClick={() =>
-                            this.setState(state => ({
-                                displayAll: !state.displayAll,
-                            }))
-                        }
-                    >
-                        show less
-                    </button>
-                ) : (
-                    <button
-                        type="button"
-                        onClick={() =>
-                            this.setState(state => ({
-                                displayAll: !state.displayAll,
-                            }))
-                        }
-                    >
-                        show more
-                    </button>
-                )}
+                <div className="episode-characters__more">
+                    {this.state.displayAll ? (
+                        <button
+                            type="button"
+                            className="primary-link is-big"
+                            onClick={() =>
+                                this.setState(state => ({
+                                    displayAll: !state.displayAll,
+                                }))
+                            }
+                        >
+                            Show less
+                        </button>
+                    ) : (
+                        <button
+                            type="button"
+                            className="primary-link is-big"
+                            onClick={() =>
+                                this.setState(state => ({
+                                    displayAll: !state.displayAll,
+                                }))
+                            }
+                        >
+                            Show more
+                        </button>
+                    )}
+                </div>
             </>
         )
     }
 
     render() {
         return (
-            <>
-                Characters
+            <div className="episode-characters">
+                <h2 className="episode-characters__title">Characters</h2>
                 {this.state.loading
                     ? this.constructor.renderPlaceholder()
                     : this.renderCharacters()}
-            </>
+            </div>
         )
     }
 }

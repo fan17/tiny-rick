@@ -39,6 +39,7 @@ class Header extends React.Component {
                         to="/"
                         className="header__nav-link"
                         activeClassName="header__nav-link-active"
+                        exact
                     >
                         Episodes
                     </NavLink>
@@ -46,6 +47,7 @@ class Header extends React.Component {
                         to="/quiz"
                         className="header__nav-link"
                         activeClassName="header__nav-link-active"
+                        exact
                     >
                         Quiz
                     </NavLink>

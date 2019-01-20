@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import InfiniteScroll from 'react-infinite-scroller'
-import { Link } from 'react-router-dom'
 import { Episode } from 'Episode/Episode'
+import EpisodeItem from 'Episode/Details/EpisodeItem'
+import { ReactComponent as SearchIcon } from 'assets/icon-search.svg'
+import { Link } from 'react-router-dom'
 
 class EpisodeIndexComponent extends React.Component {
     constructor(props) {
@@ -39,41 +41,46 @@ class EpisodeIndexComponent extends React.Component {
 
     renderSearch() {
         return (
-            <>
-                Search:{' '}
+            <div className="episodes__search">
+                <SearchIcon />
                 <input
+                    type="text"
                     value={this.state.searchText}
                     onChange={event => this.onChangeSearch(event.target.value)}
+                    placeholder="Search"
                 />
-            </>
+            </div>
         )
     }
 
     renderEpisodes() {
         return (
-            <>
-                <InfiniteScroll
-                    pageStart={this.state.page}
-                    loadMore={() =>
-                        this.load(this.state.page, this.state.searchText)
-                    }
-                    hasMore={
-                        !this.state.loading &&
-                        (this.props.hasMore || this.state.page === 1)
-                    }
-                    loader={this.constructor.renderPlaceHolder()}
-                >
+            <InfiniteScroll
+                pageStart={this.state.page}
+                loadMore={() =>
+                    this.load(this.state.page, this.state.searchText)
+                }
+                hasMore={
+                    !this.state.loading &&
+                    (this.props.hasMore || this.state.page === 1)
+                }
+                loader={this.constructor.renderPlaceHolder()}
+            >
+                <ul className="episodes__list">
                     {this.props.episodes.map(episode => (
-                        <div key={episode.id}>
-                            <div>{`episode: ${episode.number}`}</div>
-                            <div>{`season: ${episode.seasonNumber}`}</div>
-                            <div>{`name: ${episode.name}`}</div>
-                            <Link to={`/episode/${episode.id}`}>link</Link>
-                            <hr />
-                        </div>
+                        <li key={episode.id}>
+                            <Link to={`/episode/${episode.id}`}>
+                                <EpisodeItem
+                                    id={episode.id}
+                                    name={episode.name}
+                                    number={episode.number}
+                                    seasonNumber={episode.seasonNumber}
+                                />
+                            </Link>
+                        </li>
                     ))}
-                </InfiniteScroll>
-            </>
+                </ul>
+            </InfiniteScroll>
         )
     }
 
@@ -84,9 +91,11 @@ class EpisodeIndexComponent extends React.Component {
     render() {
         return (
             <>
-                EpisodeIndexComponent
-                {this.renderSearch()}
-                {this.renderEpisodes()}
+                <h1 className="main__title">Episodes</h1>
+                <div className="episodes">
+                    {this.renderSearch()}
+                    {this.renderEpisodes()}
+                </div>
             </>
         )
     }
