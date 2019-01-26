@@ -1,0 +1,86 @@
+@mixin background-image {
+  background-image: url("../assets/quiz-start.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.quiz {
+  position: absolute;
+  top: $h-header;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  width: 100%;
+  padding: 15px;
+
+  &__button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 15px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  &__button--primary {
+    background-color: $c-green;
+    color: #fff;
+  }
+
+  &__button--secondary {
+    background-color: #fff;
+    color: $c-green;
+  }
+}
+
+.quiz-intro {
+  border-radius: 15px;
+  display: flex;
+  flex-flow: wrap column;
+  width: 100%;
+  height: 100%;
+  min-width: 300px;
+  max-width: 1000px;
+  overflow: auto;
+  @media #{$desktop-up} {
+    flex-flow: row wrap;
+  }
+  &__header {
+    height: 400px;
+
+    @include background-image();
+    border-radius: 15px 15px 0 0;
+    @media #{$desktop-up} {
+      border-radius: 15px 0 0 15px;
+    }
+    flex: 2;
+    @media #{$desktop-up} {
+      flex: 1;
+      height: 100%;
+    }
+  }
+
+  &__body {
+    min-height: 170px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 15px 10px;
+    background-color: #fff;
+    color: $c-text-primary;
+    justify-content: space-around;
+
+    &__header {
+      @media #{$tablet-up} {
+        margin: auto 0;
+        text-align: center;
+      }
+    }
+
+    h2 {
+      color: $c-text-secondary;
+    }
+  }
+}

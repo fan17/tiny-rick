@@ -1,30 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Media from 'Layout/Media'
 
 class QuizIndexStartComponent extends React.Component {
-    onSubmit(event) {
-        event.preventDefault()
-        this.props.start()
-    }
-
-    renderForm() {
-        return (
-            <div>
-                QuizIndexStartComponent
-                <form onSubmit={this.onSubmit.bind(this)}>
-                    <button type="submit">next</button>
-                </form>
-            </div>
-        )
-    }
-
     render() {
         return (
-            <Media
-                image="http://tiny-rick-demo.tk/img/quiz-start.c6fd8b48.png"
-                render={() => this.renderForm()}
-            />
+            <div className="quiz-intro">
+                <div className="quiz-intro__header" />
+                <div className="quiz-intro__body">
+                    <header className="quiz-intro__body__header">
+                        <h1>Which character are you?</h1>
+                        <h2>
+                            Find out which character from the series you are
+                        </h2>
+                    </header>
+                    <div className="quiz-intro__body__bottom">
+                        <button
+                            type="button"
+                            className="quiz__button quiz__button--primary"
+                            onClick={() => this.props.start()}
+                        >
+                            Start
+                        </button>
+                    </div>
+                </div>
+            </div>
         )
     }
 }

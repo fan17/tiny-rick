@@ -80,19 +80,14 @@ class QuizIndexComponent extends React.Component {
             throw Error('Question type is not support')
         }
 
-        return (
-            <Media
-                image="http://tiny-rick-demo.tk/img/quiz-start.c6fd8b48.png"
-                render={() => result}
-            />
-        )
+        return result;
     }
 
     static renderPlaceholder() {
         return <>placeholder</>
     }
 
-    render() {
+    renderView() {
         if (!this.state.introductionHasBeenSeen) {
             return (
                 <QuizIndexStartComponent
@@ -119,6 +114,10 @@ class QuizIndexComponent extends React.Component {
         }
 
         return this.constructor.renderPlaceholder()
+    }
+
+    render() {
+        return <div className="quiz">{this.renderView()}</div>
     }
 }
 
