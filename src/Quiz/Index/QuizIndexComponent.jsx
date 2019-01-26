@@ -80,7 +80,7 @@ class QuizIndexComponent extends React.Component {
             throw Error('Question type is not support')
         }
 
-        return result;
+        return result
     }
 
     static renderPlaceholder() {
