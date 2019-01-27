@@ -2,12 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import QuizIndexStartComponent from 'Quiz/Index/QuizIndexStartComponent'
 import QuizIndexResultComponent from 'Quiz/Index/QuizIndexResultComponent'
-import QuizStepOpenQuestionComponent from 'Quiz/Index/Step/QuizStepOpenQuestionComponent'
 import QuestionInterface from 'Quiz/Question/QuestionInterface'
-import { OpenQuestion } from 'Quiz/Question/Open/OpenQuestion'
-import { ClosedQuestion } from 'Quiz/Question/Closed/ClosedQuestion'
-import QuizStepClosedQuestionComponent from 'Quiz/Index/Step/QuizStepClosedQuestionComponent'
-import Media from 'Layout/Media'
+import QuizProgressBar from 'Quiz/QuizProgressBar'
+import QuizQuestionComponent from 'Quiz/Question/QuizQuestionComponent'
 
 class QuizIndexComponent extends React.Component {
     constructor(props) {
@@ -20,6 +17,12 @@ class QuizIndexComponent extends React.Component {
         }
 
         this.setAnswer = this.setAnswer.bind(this)
+
+        this.STEPS = {
+            START: 'START',
+            QUESTION: 'QUESTION',
+            SUMMARY: 'SUMMARY',
+        }
     }
 
     getQuestionIndex() {
@@ -47,77 +50,76 @@ class QuizIndexComponent extends React.Component {
         )
     }
 
-    renderQuestion() {
-        const current = this.getQuestionIndex() + 1
-        const total = this.props.questions.length
-        const question = this.props.questions[this.getQuestionIndex()]
+    static renderPlaceholder() {
+        return <>placeholder</>
+    }
 
+    getStep() {
+        let step
+        if (!this.state.introductionHasBeenSeen) {
+            step = this.STEPS.START
+        } else if (
+            Object.keys(this.state.answers).length < this.props.questions.length
+        ) {
+            step = this.STEPS.QUESTION
+        } else if (this.state.result.name && this.state.result.image) {
+            step = this.STEPS.SUMMARY
+        }
+
+        return step
+    }
+
+    renderStep() {
         let result = ''
-
-        if (question instanceof OpenQuestion) {
-            result = (
-                <QuizStepOpenQuestionComponent
-                    current={current}
-                    total={total}
-                    question={question}
-                    setAnswer={this.setAnswer}
-                />
-            )
-        }
-
-        if (question instanceof ClosedQuestion) {
-            result = (
-                <QuizStepClosedQuestionComponent
-                    current={current}
-                    total={total}
-                    question={question}
-                    setAnswer={this.setAnswer}
-                />
-            )
-        }
-
-        if (!result) {
-            throw Error('Question type is not support')
+        switch (this.getStep()) {
+            case this.STEPS.START:
+                result = (
+                    <QuizIndexStartComponent
+                        start={() =>
+                            this.setState({ introductionHasBeenSeen: true })
+                        }
+                    />
+                )
+                break
+            case this.STEPS.QUESTION:
+                {
+                    const current = this.getQuestionIndex() + 1
+                    const total = this.props.questions.length
+                    const question = this.props.questions[
+                        this.getQuestionIndex()
+                    ]
+                    result = (
+                        <QuizQuestionComponent
+                            current={current}
+                            question={question}
+                            setAnswer={this.setAnswer}
+                            progressBar={
+                                <QuizProgressBar
+                                    current={current}
+                                    total={total}
+                                />
+                            }
+                        />
+                    )
+                }
+                break
+            case this.STEPS.SUMMARY:
+                result = (
+                    <QuizIndexResultComponent
+                        name={this.state.result.name}
+                        image={this.state.result.image}
+                    />
+                )
+                break
+            default:
+                result = this.constructor.renderPlaceholder()
         }
 
         return result
     }
 
-    static renderPlaceholder() {
-        return <>placeholder</>
-    }
-
-    renderView() {
-        if (!this.state.introductionHasBeenSeen) {
-            return (
-                <QuizIndexStartComponent
-                    start={() =>
-                        this.setState({ introductionHasBeenSeen: true })
-                    }
-                />
-            )
-        }
-
-        if (
-            Object.keys(this.state.answers).length < this.props.questions.length
-        ) {
-            return this.renderQuestion()
-        }
-
-        if (this.state.result.name && this.state.result.image) {
-            return (
-                <QuizIndexResultComponent
-                    name={this.state.result.name}
-                    image={this.state.result.image}
-                />
-            )
-        }
-
-        return this.constructor.renderPlaceholder()
-    }
-
     render() {
-        return <div className="quiz">{this.renderView()}</div>
+        return <div className="quiz">{this.renderStep()}</div>
     }
 }
 

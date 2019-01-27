@@ -9,35 +9,26 @@ class QuizStepClosedQuestionComponent extends React.Component {
     }
 
     render() {
+        const { question } = this.props
         return (
-            <div>
-                QuizStepClosedQuestionComponent
-                <br />
-                Question {this.props.current}
-                <br />
-                {this.props.current - 1} / {this.props.total}
-                {this.props.question.text()}
-                <form>
-                    {this.props.question.options().map(option => (
-                        <div key={option.id}>
-                            <input
-                                required
-                                type="radio"
-                                value={option.id}
-                                onChange={this.onChange.bind(this)}
-                            />
-                            {option.text}
-                        </div>
-                    ))}
-                </form>
-            </div>
+            <>
+                {question.options().map(option => (
+                    <div key={option.id}>
+                        <input
+                            required
+                            type="radio"
+                            value={option.id}
+                            onChange={event => this.onChange(event)}
+                        />
+                        {option.text}
+                    </div>
+                ))}
+            </>
         )
     }
 }
 
 QuizStepClosedQuestionComponent.propTypes = {
-    current: PropTypes.number.isRequired,
-    total: PropTypes.number.isRequired,
     question: PropTypes.instanceOf(ClosedQuestion).isRequired,
     setAnswer: PropTypes.func.isRequired,
 }

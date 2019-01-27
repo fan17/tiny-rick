@@ -14,6 +14,14 @@
   width: 100%;
   padding: 15px;
 
+  @media #{$tablet-up} {
+    padding: 20px 40px;
+  }
+
+  @media #{$desktop-up} {
+    justify-content: center;
+  }
+
   &__button {
     width: 100%;
     margin: 10px 0;
@@ -33,21 +41,29 @@
     background-color: #fff;
     color: $c-green;
   }
-}
 
-.quiz-intro {
-  border-radius: 15px;
-  display: flex;
-  flex-flow: wrap column;
-  width: 100%;
-  height: 100%;
-  min-width: 300px;
-  max-width: 1000px;
-  overflow: auto;
-  @media #{$desktop-up} {
-    flex-flow: row wrap;
+  &__container {
+    border-radius: 15px;
+    display: flex;
+    flex-flow: wrap column;
+    width: 100%;
+    height: 100%;
+    min-width: 300px;
+    max-width: 1000px;
+    overflow: auto;
+    @media #{$desktop-up} {
+      flex-flow: row wrap;
+    }
   }
-  &__header {
+
+  &__form {
+    height: 100%;
+    width: 100%;
+    min-width: 300px;
+    max-width: 1000px;
+  }
+
+  &__image-box {
     height: 400px;
 
     @include background-image();
@@ -60,9 +76,23 @@
       flex: 1;
       height: 100%;
     }
+
+    &--hideable {
+      display: none;
+    }
   }
 
-  &__body {
+  &__top-panel {
+    @media #{$tablet-up} {
+      margin: auto 0;
+      text-align: center;
+    }
+  }
+
+  &__bottom-panel {
+  }
+
+  &__text-box {
     min-height: 170px;
     flex: 1;
     display: flex;
@@ -72,15 +102,75 @@
     color: $c-text-primary;
     justify-content: space-around;
 
-    &__header {
-      @media #{$tablet-up} {
-        margin: auto 0;
-        text-align: center;
-      }
+    h1 {
     }
 
     h2 {
       color: $c-text-secondary;
     }
+  }
+
+  &__question-box {
+    display: flex;
+    flex-flow: column wrap;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__question-number {
+    color: $c-text-placeholder;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  &__question-panel {
+    width: 100%;
+    text-align: center;
+  }
+
+  &__question {
+    font-size: 30px;
+  }
+
+  &__answer-panel {
+    width: 100%;
+
+    input {
+      border-radius: 15px;
+      outline: none;
+      width: 100%;
+      height: 50px;
+      margin-bottom: 10px;
+      padding: 15px;
+      font-size: 15px;
+      border: 2px solid $c-fill-light;
+    }
+  }
+
+  &__progress-bar {
+    background: #fff;
+    width: 100%;
+    border-radius: 15px;
+    margin: 15px 0 30px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  &__progress-bar-text {
+    color: $c-text-primary;
+    z-index: 1;
+  }
+  &__progress-bar-done {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: inherit;
+    background-color: $c-green;
+    transition: width 0.7s ease-out;
   }
 }
