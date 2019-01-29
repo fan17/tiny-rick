@@ -25,6 +25,13 @@ class QuizIndexComponent extends React.Component {
         }
     }
 
+    reset = () =>
+        this.setState({
+            introductionHasBeenSeen: false,
+            answers: {},
+            result: {},
+        })
+
     getQuestionIndex() {
         return Object.keys(this.state.answers).length
     }
@@ -108,6 +115,7 @@ class QuizIndexComponent extends React.Component {
                     <QuizIndexResultComponent
                         name={this.state.result.name}
                         image={this.state.result.image}
+                        startAgain={this.reset}
                     />
                 )
                 break

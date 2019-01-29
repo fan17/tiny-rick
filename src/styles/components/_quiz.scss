@@ -80,6 +80,11 @@
     &--hideable {
       display: none;
     }
+
+    &--fixed {
+      flex: 1;
+      object-fit: cover;
+    }
   }
 
   &__top-panel {
@@ -89,7 +94,9 @@
     }
   }
 
-  &__bottom-panel {
+  &__character-name {
+    font-weight: bold;
+    font-size: 32px;
   }
 
   &__text-box {
@@ -101,9 +108,6 @@
     background-color: #fff;
     color: $c-text-primary;
     justify-content: space-around;
-
-    h1 {
-    }
 
     h2 {
       color: $c-text-secondary;
@@ -136,7 +140,7 @@
   &__answer-panel {
     width: 100%;
 
-    input {
+    input[type="text"] {
       border-radius: 15px;
       outline: none;
       width: 100%;
@@ -172,5 +176,29 @@
     border-radius: inherit;
     background-color: $c-green;
     transition: width 0.7s ease-out;
+  }
+
+  &__link {
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &__link--primary {
+    background: #fff;
+    color: $c-primary;
+  }
+
+  &__question-answer--radio {
+    width: 100%;
+    background: $c-primary;
+    color: #fff;
+    border-radius: 15px;
+    padding: 15px;
+    display: inline-block;
+    margin: 10px 0;
+    input {
+      opacity: 0;
+    }
   }
 }

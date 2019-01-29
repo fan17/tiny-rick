@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { OpenQuestion } from 'Quiz/Question/Open/OpenQuestion'
 
 class QuizStepOpenQuestionComponent extends React.Component {
     constructor(props) {

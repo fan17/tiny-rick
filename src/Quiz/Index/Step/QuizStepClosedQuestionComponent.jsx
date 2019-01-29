@@ -13,15 +13,20 @@ class QuizStepClosedQuestionComponent extends React.Component {
         return (
             <>
                 {question.options().map(option => (
-                    <div key={option.id}>
+                    <label
+                        key={option.id}
+                        className="quiz__question-answer--radio"
+                        htmlFor={`option_${option.id}`}
+                        onClick={() => this.props.setAnswer(option.id)}
+                    >
                         <input
                             required
                             type="radio"
+                            id={option.id}
                             value={option.id}
-                            onChange={event => this.onChange(event)}
                         />
                         {option.text}
-                    </div>
+                    </label>
                 ))}
             </>
         )

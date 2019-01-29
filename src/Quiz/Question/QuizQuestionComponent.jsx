@@ -65,13 +65,7 @@ export class QuizQuestionComponent extends Component {
                 <QuizStepClosedQuestionComponent
                     question={question}
                     setAnswer={answer =>
-                        this.setState(
-                            { answer },
-                            this.props.setAnswer(
-                                this.props.question.id(),
-                                answer
-                            )
-                        )
+                        this.props.setAnswer(question.id, answer)
                     }
                 />
             )
